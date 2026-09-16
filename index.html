@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mani's Kitchen - Tiruppur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --saffron:#E8810A;
+    --saffron-deep:#C46A00;
+    --cream:#FDF6EC;
+    --forest:#1E3A2F;
+    --forest-light:#2D5442;
+    --charcoal:#2C2B27;
+    --muted:#6B6860;
+    --card-bg:#FFFFFF;
+    --border:#E8E3D8;
+    --radius:14px;
+  }
+  body{font-family:'Inter',sans-serif;background:#FDF6EC;color:#2C2B27;overflow-x:hidden}
+
+  /* NAV */
+  nav{background:#1E3A2F;padding:0 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:999;height:68px;box-shadow:0 2px 12px rgba(0,0,0,0.18)}
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo-icon{width:40px;height:40px;background:#E8810A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;font-family:'Playfair Display',serif;font-weight:700}
+  .logo-text{color:#FDF6EC;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;line-height:1.1}
+  .logo-text span{display:block;font-size:0.65rem;font-family:'Inter',sans-serif;font-weight:400;color:#A8C4B4;letter-spacing:2px;text-transform:uppercase}
+  nav ul{list-style:none;display:flex;gap:28px}
+  nav ul li a{color:#A8C4B4;text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;letter-spacing:0.3px}
+  nav ul li a:hover{color:#FDF6EC}
+  .nav-cta{background:#E8810A;color:#fff!important;padding:8px 20px;border-radius:40px;font-weight:600!important;transition:background 0.2s!important}
+  .nav-cta:hover{background:#C46A00!important}
+  .cart-btn{background:none;border:1.5px solid #A8C4B4;color:#A8C4B4;padding:7px 16px;border-radius:40px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;gap:6px;transition:all 0.2s}
+  .cart-btn:hover{border-color:#FDF6EC;color:#FDF6EC}
+  .cart-badge{background:#E8810A;color:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;display:inline-flex;align-items:center;justify-content:center;font-weight:600}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#1E3A2F 0%,#2D5442 60%,#1A3228 100%);padding:80px 5% 70px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;right:-80px;top:-80px;width:500px;height:500px;background:rgba(232,129,10,0.08);border-radius:50%}
+  .hero::after{content:'';position:absolute;left:30%;bottom:-100px;width:300px;height:300px;background:rgba(232,129,10,0.05);border-radius:50%}
+  .hero-content{max-width:520px;position:relative;z-index:1}
+  .hero-badge{display:inline-block;background:rgba(232,129,10,0.2);color:#F5A83A;padding:5px 16px;border-radius:30px;font-size:0.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;border:1px solid rgba(232,129,10,0.3)}
+  .hero h1{font-family:'Playfair Display',serif;color:#FDF6EC;font-size:clamp(2.2rem,4vw,3.2rem);line-height:1.15;font-weight:700;margin-bottom:16px}
+  .hero h1 em{color:#E8810A;font-style:normal}
+  .hero p{color:#A8C4B4;font-size:1rem;line-height:1.7;margin-bottom:32px;max-width:420px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .btn-primary{background:#E8810A;color:#fff;border:none;padding:14px 28px;border-radius:40px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px}
+  .btn-primary:hover{background:#C46A00;transform:translateY(-1px)}
+  .btn-outline{background:transparent;color:#FDF6EC;border:1.5px solid rgba(255,255,255,0.3);padding:13px 24px;border-radius:40px;font-size:0.95rem;font-weight:500;cursor:pointer;transition:all 0.2s}
+  .btn-outline:hover{border-color:#FDF6EC;background:rgba(255,255,255,0.06)}
+  .hero-stats{display:flex;gap:32px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.1)}
+  .stat-item{text-align:left}
+  .stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#FDF6EC}
+  .stat-label{font-size:0.75rem;color:#A8C4B4;letter-spacing:0.5px;margin-top:2px}
+
+  /* HERO VISUAL */
+  .hero-visual{position:relative;z-index:1;flex-shrink:0}
+  .food-card-float{background:#fff;border-radius:20px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,0.3);width:280px}
+  .food-card-float .dish-emoji{font-size:64px;text-align:center;display:block;margin-bottom:12px}
+  .food-card-float h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:#1E3A2F;font-weight:700;margin-bottom:6px}
+  .food-card-float p{font-size:0.8rem;color:#6B6860;margin-bottom:14px;line-height:1.5}
+  .food-card-float .price-row{display:flex;align-items:center;justify-content:space-between}
+  .food-card-float .price{font-size:1.2rem;font-weight:700;color:#E8810A;font-family:'Playfair Display',serif}
+  .add-btn{background:#1E3A2F;color:#fff;border:none;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:300;transition:background 0.2s}
+  .add-btn:hover{background:#E8810A}
+  .float-tag{position:absolute;background:#E8810A;color:#fff;padding:6px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;white-space:nowrap}
+  .tag1{top:-14px;right:20px}
+  .tag2{bottom:60px;left:-30px}
+
+  /* MARQUEE - scrolling food items strip */
+  .marquee-section{background:#fff;padding:18px 0;overflow:hidden;border-top:1px solid #EDE8DD;border-bottom:1px solid #EDE8DD;position:relative}
+  .marquee-section::before,.marquee-section::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
+  .marquee-section::before{left:0;background:linear-gradient(90deg,#fff,rgba(255,255,255,0))}
+  .marquee-section::after{right:0;background:linear-gradient(270deg,#fff,rgba(255,255,255,0))}
+  .marquee-track{display:flex;align-items:center;width:max-content;animation:marquee-scroll 35s linear infinite}
+  .marquee-track:hover{animation-play-state:paused}
+  .marquee-item{display:flex;align-items:center;gap:8px;padding:0 28px;white-space:nowrap;font-size:0.9rem;color:#1E3A2F;font-weight:600}
+  .marquee-item .m-emoji{font-size:22px}
+  .marquee-item .m-price{color:#E8810A;font-weight:700}
+  .marquee-divider{color:#E8810A;font-size:1.1rem;opacity:0.6}
+  @keyframes marquee-scroll{
+    0%{transform:translateX(0)}
+    100%{transform:translateX(-50%)}
+  }
+  @media(max-width:700px){
+    .marquee-item{font-size:0.8rem;padding:0 18px}
+    .marquee-item .m-emoji{font-size:18px}
+  }
+
+  /* DELIVERY BANNER */
+  .delivery-banner{background:#E8810A;padding:16px 5%;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+  .banner-item{display:flex;align-items:center;gap:10px;color:#fff}
+  .banner-icon{font-size:20px}
+  .banner-text{font-size:0.85rem;font-weight:500}
+
+  /* SECTION */
+  section{padding:64px 5%}
+  .section-header{text-align:center;margin-bottom:48px}
+  .eyebrow{display:inline-block;color:#E8810A;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);color:#1E3A2F;font-weight:700;line-height:1.2}
+  .section-header p{color:#6B6860;font-size:0.95rem;margin-top:10px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+  /* CATEGORIES */
+  .categories-bg{background:#fff}
+  .cat-grid{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .cat-chip{background:#FDF6EC;border:1.5px solid #E8E3D8;padding:10px 22px;border-radius:40px;cursor:pointer;font-size:0.875rem;font-weight:500;color:#2C2B27;transition:all 0.2s;display:flex;align-items:center;gap:8px}
+  .cat-chip:hover,.cat-chip.active{background:#1E3A2F;color:#fff;border-color:#1E3A2F}
+  .cat-chip span{font-size:18px}
+
+  /* MENU GRID */
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
+  .menu-card{background:#fff;border-radius:var(--radius);border:1px solid #EDE8DD;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;cursor:pointer}
+  .menu-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(30,58,47,0.12)}
+  .card-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:70px;background:#FDF6EC;position:relative}
+  .veg-badge{position:absolute;top:10px;right:10px;width:20px;height:20px;border:2px solid #2E7D32;display:flex;align-items:center;justify-content:center}
+  .veg-dot{width:8px;height:8px;background:#2E7D32;border-radius:50%}
+  .nonveg-badge{position:absolute;top:10px;right:10px;width:20px;height:20px;border:2px solid #C62828;display:flex;align-items:center;justify-content:center}
+  .nonveg-dot{width:8px;height:8px;background:#C62828;border-radius:50%}
+  .best-seller{position:absolute;top:10px;left:10px;background:#E8810A;color:#fff;font-size:0.65rem;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:0.5px;text-transform:uppercase}
+  .card-body{padding:16px}
+  .card-body h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#1E3A2F;margin-bottom:4px}
+  .card-body p{font-size:0.8rem;color:#6B6860;line-height:1.5;margin-bottom:12px}
+  .card-footer{display:flex;align-items:center;justify-content:space-between}
+  .item-price{font-size:1.1rem;font-weight:700;color:#1E3A2F;font-family:'Playfair Display',serif}
+  .rating{font-size:0.78rem;color:#6B6860;display:flex;align-items:center;gap:3px}
+  .star{color:#E8810A}
+  .qty-controls{display:flex;align-items:center;gap:6px}
+  .qty-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid #1E3A2F;background:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:#1E3A2F;transition:all 0.15s;font-weight:600}
+  .qty-btn:hover{background:#1E3A2F;color:#fff}
+  .qty-num{font-size:0.9rem;font-weight:600;min-width:16px;text-align:center;color:#1E3A2F}
+  .add-item-btn{background:#1E3A2F;color:#fff;border:none;padding:7px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;cursor:pointer;transition:background 0.2s}
+  .add-item-btn:hover{background:#E8810A}
+
+  /* SPECIALS */
+  .specials-bg{background:#1E3A2F}
+  .specials-bg .section-header h2{color:#FDF6EC}
+  .specials-bg .section-header p{color:#A8C4B4}
+  .specials-bg .eyebrow{color:#F5A83A}
+  .specials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+  .special-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius);padding:20px;text-align:center;transition:background 0.2s}
+  .special-card:hover{background:rgba(255,255,255,0.12)}
+  .special-emoji{font-size:48px;display:block;margin-bottom:12px}
+  .special-card h3{font-family:'Playfair Display',serif;color:#FDF6EC;font-size:1rem;font-weight:700;margin-bottom:6px}
+  .special-card p{color:#A8C4B4;font-size:0.78rem;line-height:1.5;margin-bottom:14px}
+  .special-price{display:flex;align-items:center;justify-content:center;gap:8px}
+  .special-price .new{color:#F5A83A;font-weight:700;font-size:1.05rem;font-family:'Playfair Display',serif}
+  .special-price .old{color:#7A9E8E;font-size:0.85rem;text-decoration:line-through}
+
+  /* HOW IT WORKS */
+  .steps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:32px;max-width:860px;margin:0 auto}
+  .step{text-align:center}
+  .step-num{width:52px;height:52px;border-radius:50%;background:#FFF0DC;border:2px solid #E8810A;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#E8810A}
+  .step-icon{font-size:24px;margin-bottom:14px}
+  .step h3{font-size:1rem;font-weight:600;color:#1E3A2F;margin-bottom:6px}
+  .step p{font-size:0.82rem;color:#6B6860;line-height:1.6}
+
+  /* TESTIMONIALS */
+  .testimonials-bg{background:#fff}
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+  .review-card{background:#FDF6EC;border-radius:var(--radius);padding:22px;border:1px solid #EDE8DD}
+  .review-stars{color:#E8810A;font-size:1rem;margin-bottom:10px;letter-spacing:2px}
+  .review-text{font-size:0.875rem;color:#2C2B27;line-height:1.7;font-style:italic;margin-bottom:16px}
+  .review-author{display:flex;align-items:center;gap:10px}
+  .avatar{width:36px;height:36px;border-radius:50%;background:#1E3A2F;display:flex;align-items:center;justify-content:center;color:#A8C4B4;font-size:0.8rem;font-weight:600}
+  .author-name{font-weight:600;font-size:0.85rem;color:#1E3A2F}
+  .author-loc{font-size:0.75rem;color:#6B6860}
+
+  /* CART SIDEBAR */
+  .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.3s}
+  .cart-overlay.open{opacity:1;pointer-events:all}
+  .cart-panel{position:fixed;right:-400px;top:0;bottom:0;width:360px;background:#fff;z-index:1001;transition:right 0.3s;display:flex;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,0.15)}
+  .cart-panel.open{right:0}
+  .cart-header{padding:20px 22px;border-bottom:1px solid #EDE8DD;display:flex;align-items:center;justify-content:space-between;background:#1E3A2F}
+  .cart-header h2{font-family:'Playfair Display',serif;color:#FDF6EC;font-size:1.2rem;font-weight:700}
+  .close-cart{background:none;border:none;color:#A8C4B4;cursor:pointer;font-size:1.3rem;line-height:1;padding:4px}
+  .close-cart:hover{color:#FDF6EC}
+  .cart-items{flex:1;overflow-y:auto;padding:20px 22px}
+  .cart-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #F0EBE0}
+  .ci-emoji{font-size:32px;flex-shrink:0}
+  .ci-info{flex:1}
+  .ci-name{font-size:0.875rem;font-weight:600;color:#1E3A2F;margin-bottom:2px}
+  .ci-price{font-size:0.8rem;color:#E8810A;font-weight:600}
+  .ci-qty{display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .ci-qty button{width:24px;height:24px;border-radius:50%;border:1px solid #1E3A2F;background:none;cursor:pointer;font-size:14px;color:#1E3A2F;display:flex;align-items:center;justify-content:center;font-weight:600;transition:all 0.15s}
+  .ci-qty button:hover{background:#1E3A2F;color:#fff}
+  .ci-qty span{font-size:0.875rem;font-weight:600;min-width:14px;text-align:center}
+  .cart-empty{text-align:center;padding:60px 20px;color:#6B6860}
+  .cart-empty .empty-icon{font-size:52px;margin-bottom:16px;display:block}
+  .cart-footer{padding:20px 22px;border-top:1px solid #EDE8DD;background:#FDF6EC}
+  .total-row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.85rem;color:#6B6860}
+  .total-final{display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem;color:#1E3A2F;margin-bottom:16px;font-family:'Playfair Display',serif}
+  .checkout-btn{width:100%;background:#E8810A;color:#fff;border:none;padding:14px;border-radius:40px;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+  .checkout-btn:hover{background:#C46A00}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1E3A2F;color:#FDF6EC;padding:12px 24px;border-radius:40px;font-size:0.875rem;font-weight:500;z-index:2000;opacity:0;transition:all 0.3s;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,0.2);display:flex;align-items:center;gap:8px}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast-dot{width:8px;height:8px;background:#E8810A;border-radius:50%}
+
+  /* FOOTER */
+  footer{background:#1A2E23;padding:52px 5% 28px;color:#A8C4B4}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:40px;margin-bottom:40px}
+  .footer-brand .logo-text{color:#FDF6EC;font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700}
+  .footer-brand .logo-text span{color:#A8C4B4;font-size:0.7rem;font-family:'Inter',sans-serif;letter-spacing:2px;text-transform:uppercase}
+  .footer-brand p{font-size:0.83rem;line-height:1.7;color:#7A9E8E;margin-top:12px;max-width:220px}
+  .footer-col h4{color:#FDF6EC;font-size:0.85rem;font-weight:600;margin-bottom:14px;letter-spacing:0.5px}
+  .footer-col ul{list-style:none}
+  .footer-col ul li{margin-bottom:8px}
+  .footer-col ul li a{color:#7A9E8E;text-decoration:none;font-size:0.82rem;transition:color 0.2s}
+  .footer-col ul li a:hover{color:#FDF6EC}
+  .contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:0.82rem;color:#7A9E8E;line-height:1.5}
+  .contact-icon{color:#E8810A;flex-shrink:0;margin-top:2px}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;align-items:center;justify-content:space-between;font-size:0.78rem;color:#5A7A6A}
+
+  @media(max-width:900px){
+    .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  }
+  @media(max-width:700px){
+    nav ul{display:none}
+    .hero{flex-direction:column;text-align:center}
+    .hero-stats{justify-content:center}
+    .hero-visual{display:none}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
+    .cart-panel{width:100%;right:-100%}
+    .delivery-banner{gap:20px}
+  }
+  @media(max-width:480px){
+    .footer-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">M</div>
+    <div class="logo-text">Mani's Kitchen<span>Tiruppur, Tamil Nadu</span></div>
+  </div>
+  <ul>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#specials">Today's Specials</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="nav-cta">Order Now</a></li>
+  </ul>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Cart <span class="cart-badge" id="cart-count">0</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">⚡ Free delivery on orders above ₹300</div>
+    <h1>Authentic South Indian<br><em>Home-Style Cooking</em><br>Delivered Fresh</h1>
+    <p>Freshly prepared meals from our kitchen in Tiruppur — wholesome curries, crispy dosas, and hearty biryanis made with traditional spices and love.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">🍛 Explore Menu</button>
+      <button class="btn-outline" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How It Works</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">2000+</div><div class="stat-label">Happy Customers</div></div>
+      <div class="stat-item"><div class="stat-num">4.8★</div><div class="stat-label">Average Rating</div></div>
+      <div class="stat-item"><div class="stat-num">30min</div><div class="stat-label">Avg Delivery</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div style="position:relative">
+      <span class="float-tag tag1">🔥 Today's Special</span>
+      <div class="food-card-float">
+        <span class="dish-emoji">🍛</span>
+        <h3>Mutton Biryani</h3>
+        <p>Slow-cooked with aromatic spices, served with raita &amp; salna</p>
+        <div class="price-row">
+          <span class="price">₹220</span>
+          <button class="add-btn" onclick="addToCart('Mutton Biryani',220,'🍛',99)">+</button>
+        </div>
+      </div>
+      <span class="float-tag tag2">⏰ 30 min delivery</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE: scrolling food items strip -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee-track"></div>
+</div>
+
+<!-- DELIVERY BANNER -->
+<div class="delivery-banner">
+  <div class="banner-item"><span class="banner-icon">🚴</span><span class="banner-text">Free delivery above ₹300</span></div>
+  <div class="banner-item"><span class="banner-icon">⏰</span><span class="banner-text">Open 7 AM – 10 PM daily</span></div>
+  <div class="banner-item"><span class="banner-icon">🌿</span><span class="banner-text">Fresh ingredients every day</span></div>
+  <div class="banner-item"><span class="banner-icon">📞</span><span class="banner-text">Call: 97866 80749</span></div>
+</div>
+
+<!-- CATEGORY FILTER -->
+<section class="categories-bg" style="padding:36px 5%">
+  <div class="cat-grid" id="cat-grid">
+    <div class="cat-chip active" onclick="filterMenu('all',this)"><span>🍽️</span> All Items</div>
+    <div class="cat-chip" onclick="filterMenu('breakfast',this)"><span>🌅</span> Breakfast</div>
+    <div class="cat-chip" onclick="filterMenu('rice',this)"><span>🍚</span> Rice &amp; Biryani</div>
+    <div class="cat-chip" onclick="filterMenu('curry',this)"><span>🍲</span> Curries</div>
+    <div class="cat-chip" onclick="filterMenu('snacks',this)"><span>🥘</span> Snacks &amp; Sides</div>
+    <div class="cat-chip" onclick="filterMenu('drinks',this)"><span>🥤</span> Drinks</div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" style="background:#FDF6EC">
+  <div class="section-header">
+    <div class="eyebrow">Our Menu</div>
+    <h2>Made Fresh, Served Hot</h2>
+    <p>Every dish prepared with traditional Tamil recipes passed down through generations</p>
+  </div>
+  <div class="menu-grid" id="menu-grid"></div>
+</section>
+
+<!-- TODAY'S SPECIALS -->
+<section id="specials" class="specials-bg">
+  <div class="section-header">
+    <div class="eyebrow">Chef's Picks</div>
+    <h2>Today's Specials</h2>
+    <p>Limited portions — order early to enjoy our daily handcrafted specials</p>
+  </div>
+  <div class="specials-grid">
+    <div class="special-card">
+      <span class="special-emoji">🍗</span>
+      <h3>Chicken Chettinad</h3>
+      <p>Fiery Chettinad masala with fresh coconut milk</p>
+      <div class="special-price"><span class="new">₹180</span><span class="old">₹220</span></div>
+    </div>
+    <div class="special-card">
+      <span class="special-emoji">🫕</span>
+      <h3>Mutton Kola Urundai</h3>
+      <p>Crispy minced mutton fritters — a Tiruppur favourite</p>
+      <div class="special-price"><span class="new">₹120</span><span class="old">₹150</span></div>
+    </div>
+    <div class="special-card">
+      <span class="special-emoji">🌾</span>
+      <h3>Seeraga Samba Biryani</h3>
+      <p>Aromatic short-grain rice biryani with tender chicken</p>
+      <div class="special-price"><span class="new">₹200</span><span class="old">₹240</span></div>
+    </div>
+    <div class="special-card">
+      <span class="special-emoji">🥞</span>
+      <h3>Combo Meals</h3>
+      <p>Rice + 2 curries + papad + pickle — full Tamil meal</p>
+      <div class="special-price"><span class="new">₹110</span><span class="old">₹140</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:#fff">
+  <div class="section-header">
+    <div class="eyebrow">Easy Ordering</div>
+    <h2>From Our Kitchen to Your Door</h2>
+    <p>Simple, fast, and reliable — order in just a few taps</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-icon">🍽️</div>
+      <h3>Browse the Menu</h3>
+      <p>Explore our full menu of South Indian classics and daily specials</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-icon">🛒</div>
+      <h3>Add to Cart</h3>
+      <p>Select your dishes and customize quantities to your taste</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-icon">📞</div>
+      <h3>Confirm Order</h3>
+      <p>Call us or WhatsApp to confirm — we accept cash and UPI</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-icon">🚴</div>
+      <h3>Fast Delivery</h3>
+      <p>Hot and fresh at your doorstep within 30 minutes in Tiruppur</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="testimonials-bg">
+  <div class="section-header">
+    <div class="eyebrow">Customer Love</div>
+    <h2>What Our Customers Say</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The mutton biryani is exactly like my mom's recipe — rich, aromatic, and absolutely filling. Best in Tiruppur!"</p>
+      <div class="review-author"><div class="avatar">RK</div><div><div class="author-name">Ramesh K.</div><div class="author-loc">Tiruppur Town</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Ordered for the whole family on Sunday — they delivered on time and everything was piping hot. The Chettinad chicken was outstanding!"</p>
+      <div class="review-author"><div class="avatar">PS</div><div><div class="author-name">Priya S.</div><div class="author-loc">Palladam Road</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Lunch combo is unbeatable value — rice, sambar, two curries for just ₹110. Order here every day for office lunch!"</p>
+      <div class="review-author"><div class="avatar">MV</div><div><div class="author-name">Murugan V.</div><div class="author-loc">SIDCO Nagar</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-text">Mani's Kitchen<span>Established with love</span></div>
+      <p>Authentic South Indian home-style cooking delivered fresh across Tiruppur. Taste the tradition in every bite.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#menu">Our Menu</a></li>
+        <li><a href="#specials">Today's Specials</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Popular Items</h4>
+      <ul>
+        <li><a href="#">Mutton Biryani</a></li>
+        <li><a href="#">Chettinad Chicken</a></li>
+        <li><a href="#">Idli &amp; Dosa</a></li>
+        <li><a href="#">Lunch Combo</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <div class="contact-item"><span class="contact-icon">📍</span>Surya Colony, Golden Nagar, Palayakadu North, Tiruppur, Tamil Nadu 641604</div>
+      <div class="contact-item"><span class="contact-icon">📞</span><a href="tel:+919786680749" style="color:#7A9E8E;text-decoration:none">+91 97866 80749</a></div>
+      <div class="contact-item"><span class="contact-icon">💬</span><a href="https://wa.me/919786680749" style="color:#7A9E8E;text-decoration:none" target="_blank">WhatsApp us to order</a></div>
+      <div class="contact-item"><span class="contact-icon">⏰</span>Mon–Sun: 7:00 AM – 10:00 PM</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Mani's Kitchen. All rights reserved.</span>
+    <span>Made with ❤️ in Tiruppur</span>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-header">
+    <h2>🛒 Your Order</h2>
+    <button class="close-cart" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-list">
+    <div class="cart-empty"><span class="empty-icon">🍽️</span><p>Your cart is empty.<br>Add items from our menu!</p></div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="total-row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+    <div class="total-row"><span>Delivery charge</span><span id="delivery-fee">₹30</span></div>
+    <div class="total-row"><span>GST (5%)</span><span id="gst">₹0</span></div>
+    <div class="total-final"><span>Total</span><span id="grand-total">₹0</span></div>
+    <button class="checkout-btn" onclick="checkout()">💬 Confirm Order via WhatsApp</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="toast-dot"></span><span id="toast-msg">Added to cart!</span></div>
+
+<script>
+const PHONE = '919786680749';
+
+const menuItems = [
+  {id:1,name:'Idli & Sambar',desc:'Soft steamed idlis with tangy sambar & chutneys',price:60,emoji:'🫓',cat:'breakfast',veg:true,best:true,rating:4.9},
+  {id:2,name:'Masala Dosa',desc:'Crispy dosa with spiced potato filling & coconut chutney',price:80,emoji:'🥞',cat:'breakfast',veg:true,best:false,rating:4.8},
+  {id:3,name:'Pongal',desc:'Creamy rice & lentil comfort dish with ghee & cashews',price:70,emoji:'🍚',cat:'breakfast',veg:true,best:false,rating:4.7},
+  {id:4,name:'Mutton Biryani',desc:'Slow-cooked with aromatic whole spices, served with raita',price:220,emoji:'🍛',cat:'rice',veg:false,best:true,rating:4.9},
+  {id:5,name:'Chicken Biryani',desc:'Tender chicken pieces in fragrant basmati rice',price:180,emoji:'🍗',cat:'rice',veg:false,best:false,rating:4.8},
+  {id:6,name:'Vegetable Biryani',desc:'Aromatic rice with mixed vegetables & fried onions',price:130,emoji:'🌾',cat:'rice',veg:true,best:false,rating:4.6},
+  {id:7,name:'Chettinad Chicken',desc:'Fiery South Indian spice blend with whole garam masala',price:160,emoji:'🍲',cat:'curry',veg:false,best:true,rating:4.9},
+  {id:8,name:'Mutton Curry',desc:'Slow-braised mutton in rich onion tomato gravy',price:200,emoji:'🫕',cat:'curry',veg:false,best:false,rating:4.8},
+  {id:9,name:'Egg Curry',desc:'Boiled eggs in spiced tomato masala',price:100,emoji:'🥚',cat:'curry',veg:false,best:false,rating:4.6},
+  {id:10,name:'Dal Tadka',desc:'Yellow lentils tempered with mustard, curry leaves & chilli',price:80,emoji:'🍵',cat:'curry',veg:true,best:false,rating:4.5},
+  {id:11,name:'Medu Vada',desc:'Crispy fried lentil doughnuts, served with sambar & chutney',price:60,emoji:'🍩',cat:'snacks',veg:true,best:false,rating:4.7},
+  {id:12,name:'Bajji Platter',desc:'Assorted fritters — raw banana, potato, onion',price:80,emoji:'🥘',cat:'snacks',veg:true,best:false,rating:4.6},
+  {id:13,name:'Filter Coffee',desc:'Traditional South Indian drip coffee with frothy milk',price:30,emoji:'☕',cat:'drinks',veg:true,best:true,rating:5.0},
+  {id:14,name:'Buttermilk',desc:'Chilled spiced buttermilk with asafoetida & curry leaves',price:25,emoji:'🥛',cat:'drinks',veg:true,best:false,rating:4.8},
+  {id:15,name:'Tender Coconut',desc:'Fresh tender coconut water — naturally sweet & cooling',price:50,emoji:'🥥',cat:'drinks',veg:true,best:false,rating:4.9},
+];
+
+let cart = {};
+let currentFilter = 'all';
+
+function renderMenu(filter) {
+  const grid = document.getElementById('menu-grid');
+  const items = filter === 'all' ? menuItems : menuItems.filter(i => i.cat === filter);
+  grid.innerHTML = items.map(item => `
+    <div class="menu-card">
+      <div class="card-img">
+        ${item.emoji}
+        ${item.best ? '<div class="best-seller">Best Seller</div>' : ''}
+        ${item.veg
+          ? '<div class="veg-badge"><div class="veg-dot"></div></div>'
+          : '<div class="nonveg-badge"><div class="nonveg-dot"></div></div>'}
+      </div>
+      <div class="card-body">
+        <h3>${item.name}</h3>
+        <p>${item.desc}</p>
+        <div class="card-footer">
+          <div>
+            <div class="item-price">&#8377;${item.price}</div>
+            <div class="rating"><span class="star">&#9733;</span> ${item.rating}</div>
+          </div>
+          ${cart[item.id]
+            ? `<div class="qty-controls">
+                <button class="qty-btn" onclick="changeQty(${item.id},-1)">&#8722;</button>
+                <span class="qty-num">${cart[item.id].qty}</span>
+                <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+               </div>`
+            : `<button class="add-item-btn" onclick="addToCart('${item.name.replace(/'/g,"\\'")}',${item.price},'${item.emoji}',${item.id})">Add +</button>`
+          }
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterMenu(cat, el) {
+  currentFilter = cat;
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderMenu(cat);
+}
+
+function addToCart(name, price, emoji, id) {
+  if (!cart[id]) cart[id] = {name, price, emoji, qty: 0};
+  cart[id].qty++;
+  updateCartUI();
+  showToast('🛒 ' + name + ' added!');
+  renderMenu(currentFilter);
+}
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id].qty += delta;
+  if (cart[id].qty <= 0) delete cart[id];
+  updateCartUI();
+  renderMenu(currentFilter);
+}
+
+function updateCartUI() {
+  const total = Object.values(cart).reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cart-count').textContent = total;
+  renderCartItems();
+}
+
+function renderCartItems() {
+  const list = document.getElementById('cart-items-list');
+  const footer = document.getElementById('cart-footer');
+  const items = Object.entries(cart);
+  if (!items.length) {
+    list.innerHTML = '<div class="cart-empty"><span class="empty-icon">&#127869;&#65039;</span><p>Your cart is empty.<br>Add items from our menu!</p></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  list.innerHTML = items.map(([id, item]) => `
+    <div class="cart-item">
+      <span class="ci-emoji">${item.emoji}</span>
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-price">&#8377;${item.price} &times; ${item.qty}</div>
+      </div>
+      <div class="ci-qty">
+        <button onclick="changeQty(${id},-1)">&#8722;</button>
+        <span>${item.qty}</span>
+        <button onclick="changeQty(${id},1)">+</button>
+      </div>
+    </div>
+  `).join('');
+  const sub = items.reduce((s, [, i]) => s + i.price * i.qty, 0);
+  const delivery = sub >= 300 ? 0 : 30;
+  const gst = Math.round(sub * 0.05);
+  const grand = sub + delivery + gst;
+  document.getElementById('subtotal').textContent = '&#8377;' + sub;
+  document.getElementById('delivery-fee').textContent = delivery === 0 ? 'FREE' : '&#8377;' + delivery;
+  document.getElementById('gst').textContent = '&#8377;' + gst;
+  document.getElementById('grand-total').textContent = '&#8377;' + grand;
+}
+
+function toggleCart() {
+  document.getElementById('cart-overlay').classList.toggle('open');
+  document.getElementById('cart-panel').classList.toggle('open');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function checkout() {
+  const items = Object.values(cart);
+  if (!items.length) return;
+  const sub = items.reduce((s, i) => s + i.price * i.qty, 0);
+  const delivery = sub >= 300 ? 0 : 30;
+  const gst = Math.round(sub * 0.05);
+  const grand = sub + delivery + gst;
+  const lines = items.map(i => `${i.name} x${i.qty} = Rs.${i.price * i.qty}`).join('\n');
+  const msg = encodeURIComponent(
+    `Hi Mani's Kitchen! I'd like to place an order:\n\n${lines}\n\nSubtotal: Rs.${sub}\nDelivery: Rs.${delivery === 0 ? 'FREE' : delivery}\nGST (5%): Rs.${gst}\nTotal: Rs.${grand}\n\nPlease confirm my order. Thank you!`
+  );
+  window.open('https://wa.me/' + PHONE + '?text=' + msg, '_blank');
+}
+
+function renderMarquee() {
+  const track = document.getElementById('marquee-track');
+  const strip = menuItems.map(item => `
+    <div class="marquee-item">
+      <span class="m-emoji">${item.emoji}</span>
+      <span>${item.name}</span>
+      <span class="m-price">&#8377;${item.price}</span>
+    </div>
+    <span class="marquee-divider">&#8226;</span>
+  `).join('');
+  // duplicate the strip so the loop is seamless (scrolls exactly -50%)
+  track.innerHTML = strip + strip;
+}
+
+renderMenu('all');
+renderMarquee();
+</script>
+</body>
+</html>
